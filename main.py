@@ -152,7 +152,7 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
                     print(f'- {phone[0]}')   
             
 
-with psycopg2.connect(database="clients_db", user="postgres", password="smog1718") as conn:
+with psycopg2.connect(database="clients_db", user="postgres", password="postgres") as conn:
     drop_tables(conn)
     create_tables(conn)
     add_client(conn,"Иван","Фёдорович","misha_fedr@qwerty.com")
