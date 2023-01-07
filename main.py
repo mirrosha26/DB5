@@ -19,6 +19,7 @@ def create_tables(conn):
         """)
     conn.commit() 
 
+    
 def drop_tables(conn):
     with conn.cursor() as cur:
         cur.execute(
@@ -29,10 +30,12 @@ def drop_tables(conn):
         )
     conn.commit()
 
+    
 def add_phone(conn, client_id, phone):
     phone_id = add_phone_only(conn, client_id, phone)
     print(f'К клиенту [{client_id}] добавлен телефон {phone} [{phone_id}]') 
 
+    
 def add_phone_only(conn, client_id, phone):
     with conn.cursor() as cur:
         cur.execute(
@@ -44,6 +47,7 @@ def add_phone_only(conn, client_id, phone):
         phone_id = cur.fetchone()[0]
     return phone_id
 
+
 def add_client_only(conn,first_name, last_name, email):
     with conn.cursor() as cur:
         cur.execute(
@@ -54,6 +58,7 @@ def add_client_only(conn,first_name, last_name, email):
         )
         client_id = cur.fetchone()[0]
     return client_id
+    
     
 def add_client(conn, first_name, last_name, email, phones=None ):
         client_id = add_client_only(conn,first_name, last_name, email)
@@ -73,6 +78,7 @@ def delete_phones(conn, client_id):
                     """, (client_id,)
                 )
     conn.commit()
+        
         
 def change_client(conn, client_id, first_name=None, last_name=None, email=None, phones=None):
     print(f"Обновление клиента [{client_id}]")
@@ -110,6 +116,7 @@ def change_client(conn, client_id, first_name=None, last_name=None, email=None, 
                 phone_id = add_phone_only(conn, client_id, phone)
                 print(f'- телефон обнавлен => {phone} [{phone_id}]')
         
+        
 def delete_client(conn, client_id):
     delete_phones(conn, client_id)
     with conn.cursor() as cur:
@@ -122,6 +129,7 @@ def delete_client(conn, client_id):
     conn.commit()
     print(f"Клиент [{client_id}] удален")
 
+    
 def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
     with conn.cursor() as cur:
         if phone != None:
